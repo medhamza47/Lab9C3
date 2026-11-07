@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Spring Security</title>
+    <link rel="stylesheet" th:href="@{'/css/style.css'}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>Bienvenue sur l'application publique</h2>
+            <p class="subtitle">TP 9 : Authentification en mémoire avec Spring Security</p>
+        </header>
+
+        <div class="status-card" sec:authorize="isAuthenticated()">
+            <p>Connecté en tant que : <strong sec:authentication="name"></strong></p>
+            <p>Rôles attribués : <span sec:authentication="principal.authorities" class="badge"></span></p>
+            <form th:action="@{'/logout'}" method="post">
+                <button type="submit" class="btn btn-danger">Se déconnecter</button>
+            </form>
+        </div>
+
+        <div class="nav-links">
+            <p><a th:href="@{'/user/dashboard'}" class="btn btn-primary">Espace Utilisateur</a></p>
+            <p><a th:href="@{'/admin/dashboard'}" class="btn btn-warning">Espace Administrateur</a></p>
+            <p sec:authorize="!isAuthenticated()">
+                <a th:href="@{'/login'}" class="btn btn-success">Se connecter</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

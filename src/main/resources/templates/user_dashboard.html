@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Utilisateur - Spring Security</title>
+    <link rel="stylesheet" th:href="@{'/css/style.css'}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>Tableau de bord Utilisateur</h2>
+            <p class="subtitle">Zone réservée aux utilisateurs authentifiés avec le rôle USER</p>
+        </header>
+
+        <div class="card">
+            <h3>Bienvenue, <span sec:authentication="name">Utilisateur</span> !</h3>
+            <p>Vos rôles : <span sec:authentication="principal.authorities" class="badge"></span></p>
+            <p>Vous avez accès avec succès à l'espace utilisateur (<code>/user/dashboard</code>).</p>
+        </div>
+
+        <div class="nav-links">
+            <a th:href="@{'/'}" class="btn btn-secondary">Retour à l'accueil</a>
+            <a th:href="@{'/admin/dashboard'}" class="btn btn-warning">Tenter l'Espace Admin</a>
+            <form th:action="@{'/logout'}" method="post" style="display:inline-block; margin-top:10px;">
+                <button type="submit" class="btn btn-danger">Se déconnecter</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
